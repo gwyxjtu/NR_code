@@ -4,7 +4,7 @@ import pprint
 
 m = gp.Model("lagrange")
 
-load = [1800, 1900, 2200, 2100]
+load = [i for i in range(1000,1700,100)]
 
 
 def opt(load):
@@ -17,17 +17,17 @@ def opt(load):
     price_jz2 = [340,420,460]#机组2
     ub_jz2 = [700,100,100]
     lb_jz2 = [300,0,0]
-    price_jz3 = [60,300,390]#机组3
-    ub_jz3 = [300,300,200]
-    lb_jz3 = [0,0,0]
+    # price_jz3 = [60,300,390]#机组3
+    # ub_jz3 = [300,300,200]
+    # lb_jz3 = [0,0,0]
     P_G_jz1 = [m.addVar(vtype=GRB.CONTINUOUS,name="P_G_jz1_%d" % i) for i in range(3)]  #3是指三个阶段报价，代表每一个报价阶段的出力量。
     P_G_jz2 = [m.addVar(vtype=GRB.CONTINUOUS,name="P_G_jz2_%d" % i) for i in range(3)]
-    P_G_jz3 = [m.addVar(vtype=GRB.CONTINUOUS,name="P_G_jz3_%d" % i) for i in range(3)]
+    # P_G_jz3 = [m.addVar(vtype=GRB.CONTINUOUS,name="P_G_jz3_%d" % i) for i in range(3)]
     P_D = load
     
     
 
-    l = m.addConstr(gp.quicksum(P_G_jz3)+gp.quicksum(P_G_jz2)+gp.quicksum(P_G_jz1)>= P_D)
+    l = m.addConstr(gp.quicksum(P_G_jz2)+gp.quicksum(P_G_jz1)>= P_D)
 
 
     for i in range(len(P_G_jz1)):
@@ -35,9 +35,9 @@ def opt(load):
         m.addConstr(P_G_jz1[i] <= ub_jz1[i])
         m.addConstr(P_G_jz2[i] >= lb_jz2[i])
         m.addConstr(P_G_jz2[i] <= ub_jz2[i])
-        m.addConstr(P_G_jz3[i] >= lb_jz3[i])
-        m.addConstr(P_G_jz3[i] <= ub_jz3[i])
-    m.setObjective(gp.quicksum([price_jz1[i]*P_G_jz1[i] +price_jz2[i]*P_G_jz2[i]+price_jz3[i]*P_G_jz3[i]for i in range(len(P_G_jz3))]),GRB.MINIMIZE)
+        # m.addConstr(P_G_jz3[i] >= lb_jz3[i])
+        # m.addConstr(P_G_jz3[i] <= ub_jz3[i])
+    m.setObjective(gp.quicksum([price_jz1[i]*P_G_jz1[i] +price_jz2[i]*P_G_jz2[i] for i in range(len(P_G_jz1))]),GRB.MINIMIZE)
     m.optimize()
     print("----------------")
     ans = {}
@@ -50,7 +50,8 @@ def opt(load):
     ans['load'] = load
     ans['Obj'] = m.ObjVal
     ans['dual_price'] = l.Pi
-    return ans
+
+    return l.Pi
 
 
 final = []
