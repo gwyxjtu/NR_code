@@ -1,0 +1,4 @@
+,bus,controllable,in_service,name,p_mw,scaling,sn_mva,type,vm_pu,slack,max_p_mw,min_p_mw,max_q_mvar,min_q_mvar,slack_weight
+0,0,True,True,,40.0,1.0,,,1.0,False,40.0,0.0,30.0,-30.0,0.0
+1,2,True,True,,323.49,1.0,,,1.0,False,520.0,0.0,390.0,-390.0,0.0
+2,4,True,True,,466.51,1.0,,,1.0,False,600.0,0.0,450.0,-450.0,0.0
