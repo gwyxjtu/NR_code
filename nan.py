@@ -1,3 +1,11 @@
+'''
+Author: gwyxjtu 867718012@qq.com
+Date: 2022-06-04 20:01:50
+LastEditors: gwyxjtu 867718012@qq.com
+LastEditTime: 2022-06-05 17:50:28
+FilePath: /NR_code/nan.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 import gurobipy as gp
 from gurobipy import GRB
 import pprint
@@ -29,14 +37,16 @@ def nan_opt(load,   # 机组负载
     P_D = load
 
     l = m.addConstr(gp.quicksum(P_G_jz3)+gp.quicksum(P_G_jz2)+gp.quicksum(P_G_jz1)>= P_D)
-
+    l1 = []
+    l2 = []
+    l3 = []
     for i in range(len(P_G_jz1)):
-        m.addConstr(P_G_jz1[i] >= lb_jz1[i])
-        m.addConstr(P_G_jz1[i] <= ub_jz1[i])
-        m.addConstr(P_G_jz2[i] >= lb_jz2[i])
-        m.addConstr(P_G_jz2[i] <= ub_jz2[i])
-        m.addConstr(P_G_jz3[i] >= lb_jz3[i])
-        m.addConstr(P_G_jz3[i] <= ub_jz3[i])
+        l1.append(m.addConstr(P_G_jz1[i] >= lb_jz1[i]+0.1))
+        l1.append(m.addConstr(P_G_jz1[i] <= ub_jz1[i]))
+        l2.append(m.addConstr(P_G_jz2[i] >= lb_jz2[i]+0.1))
+        l2.append(m.addConstr(P_G_jz2[i] <= ub_jz2[i]))
+        l3.append(m.addConstr(P_G_jz3[i] >= lb_jz3[i]+0.1))
+        l3.append(m.addConstr(P_G_jz3[i] <= ub_jz3[i]))
     m.setObjective(gp.quicksum([price_jz1[i]*P_G_jz1[i] +price_jz2[i]*P_G_jz2[i]+price_jz3[i]*P_G_jz3[i]for i in range(len(P_G_jz3))]),GRB.MINIMIZE)
     m.optimize()
     print("----------------")
@@ -50,6 +60,9 @@ def nan_opt(load,   # 机组负载
     ans['load'] = load
     ans['Obj'] = m.ObjVal
     ans['dual_price'] = l.Pi
+    ans['l1_dual'] = [l1[i].pi for i in range(len(l1))]
+    ans['l2_dual'] = [l2[i].pi for i in range(len(l2))]
+    ans['l3_dual'] = [l3[i].pi for i in range(len(l3))]
     return ans
 
 if __name__=="__main__":

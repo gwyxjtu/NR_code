@@ -1,3 +1,11 @@
+'''
+Author: gwyxjtu 867718012@qq.com
+Date: 2022-06-05 13:07:05
+LastEditors: gwyxjtu 867718012@qq.com
+LastEditTime: 2022-06-05 17:50:09
+FilePath: /NR_code/nan_without_price.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 import gurobipy as gp
 from gurobipy import GRB
 from config import load
@@ -31,9 +39,9 @@ def nwp_opt(load,
     l = m.addConstr(gp.quicksum(P_G_jz2)+gp.quicksum(P_G_jz1)>= P_D)
 
     for i in range(len(P_G_jz1)):
-        m.addConstr(P_G_jz1[i] >= lb_jz1[i])
+        m.addConstr(P_G_jz1[i] >= lb_jz1[i]+0.1)
         m.addConstr(P_G_jz1[i] <= ub_jz1[i])
-        m.addConstr(P_G_jz2[i] >= lb_jz2[i])
+        m.addConstr(P_G_jz2[i] >= lb_jz2[i]+0.1)
         m.addConstr(P_G_jz2[i] <= ub_jz2[i])
         # m.addConstr(P_G_jz3[i] >= lb_jz3[i])
         # m.addConstr(P_G_jz3[i] <= ub_jz3[i])
@@ -57,8 +65,9 @@ def nwp_opt(load,
 
 if __name__=="__main__":
 
-    final = []
-    for i in range(len(load)):
-        final.append(nwp_opt(load[i]))
+    # final = []
+    # for i in range(len(load)):
+    #     final.append(nwp_opt(load[i]))
 
-    pprint.pprint(final)
+    # pprint.pprint(final)
+    nwp_opt(2100)

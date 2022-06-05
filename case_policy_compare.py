@@ -142,7 +142,7 @@ for key,description in ylabel_map.items():
     y.append(record[key])
     y.append(record_nogrid[key])
     legends.append("报量不报价")
-    legends.append("报量报价")
+    legends.append("部分比例参与市场报价")
     title="风电报量_{}".format(description[:description.find("/")])
     save_path=os.path.join("cache",title+".png")
     export_fig(x,y,xlabel,description,title,legends,save_path)
