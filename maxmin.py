@@ -54,25 +54,26 @@ for l in load:
         record["profit"].append(l*clearing_price)
     total_record[l]=record
 
-load.sort()
-xlabel="风电报量/MW·h"
-ylabel_map={
-    "clearing price":"出清价格/(元/MW·h)",
-    "profit_C":"风电收入/元",
-    "profit_A":"火电商A收入/元",
-    "profit_B":"火电商B收入/元",
-    "profit":"社会用电总支出/元",
-    }
-for key,description in ylabel_map.items():
-    x=[]
-    y=[]
-    legends=[]
-    for l in load:
-        x.append(total_record[l]["pw"])
-        y.append(total_record[l][key])
-        legends.append(l)
-    title="风电报量_{}".format(description[:description.find("/")])
-    save_path=os.path.join(cache_dir,title+".png")
-    export_fig(x,y,xlabel,description,title,legends,save_path)
+if __name__=="__main__":
+    load.sort()
+    xlabel="风电报量/MW·h"
+    ylabel_map={
+        "clearing price":"出清价格/(元/MW·h)",
+        "profit_C":"风电收入/元",
+        "profit_A":"火电商A收入/元",
+        "profit_B":"火电商B收入/元",
+        "profit":"社会用电总支出/元",
+        }
+    for key,description in ylabel_map.items():
+        x=[]
+        y=[]
+        legends=[]
+        for l in load:
+            x.append(total_record[l]["pw"])
+            y.append(total_record[l][key])
+            legends.append(l)
+        title="风电报量_{}".format(description[:description.find("/")])
+        save_path=os.path.join(cache_dir,title+".png")
+        export_fig(x,y,xlabel,description,title,legends,save_path)
 
  
