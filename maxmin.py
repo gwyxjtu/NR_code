@@ -1,5 +1,5 @@
-from nan import nan_opt
-from nan_without_price import nwp_opt
+#from nan import nan_opt
+#from nan_without_price import nwp_opt
 from config import load,cache_dir
 import os
 from matplotlib import pyplot as plt
@@ -23,32 +23,32 @@ def export_fig(x,y,xlabel,ylabel,title,legends,save_path):
     plt.savefig(save_path,dpi=600)
     plt.clf()
     plt.cla()
-
-total_record={}
-
-for l in load:
-    record={
-        "pw":[],
-        "clearing price":[],
-        "profit":[],
-        "profit_A":[],
-        "profit_B":[],
-        "profit_C":[],
-    }
-    lb=l-1700
-    ub=min(l-500,800)
-    for pw in range(lb,ub,10):
-        clearing_price,pw_A,pw_B=nwp_opt(l,ub_jz3=pw)
-        profit=clearing_price*pw
-        record["pw"].append(pw)
-        record["clearing price"].append(clearing_price)
-        record["profit_C"].append(profit)
-        record["profit_A"].append(pw_A*clearing_price)
-        record["profit_B"].append(pw_B*clearing_price)
-        record["profit"].append(l*clearing_price)
-    total_record[l]=record
-
 if __name__=="__main__":
+    total_record={}
+
+    for l in load:
+        record={
+            "pw":[],
+            "clearing price":[],
+            "profit":[],
+            "profit_A":[],
+            "profit_B":[],
+            "profit_C":[],
+        }
+        lb=l-1700
+        ub=min(l-500,800)
+        for pw in range(lb,ub,10):
+            clearing_price,pw_A,pw_B=nwp_opt(l,ub_jz3=pw)
+            profit=clearing_price*pw
+            record["pw"].append(pw)
+            record["clearing price"].append(clearing_price)
+            record["profit_C"].append(profit)
+            record["profit_A"].append(pw_A*clearing_price)
+            record["profit_B"].append(pw_B*clearing_price)
+            record["profit"].append(l*clearing_price)
+        total_record[l]=record
+
+
     load.sort()
     xlabel="风电报量/MW·h"
     ylabel_map={

@@ -96,7 +96,26 @@ for wind_pw in range(276,650,10):
     record["profit"].append(1000*clearing_price)
 
 
-record_nogrid = json.load(open("record_nogrid.json"))
+record_nogrid = {
+    "pw":[],
+    "clearing price":[],
+    "profit":[],
+    "profit_A":[],
+    "profit_B":[],
+    "profit_C":[],
+}
+list_C = [[0,350,0],[350,500,340],[500,600,390]]
+for wind_pw in range(276,650,10):
+    clearing_price,pw_A,pw_B,pw_C=run_powerflow_without_massflow(wind_pw)
+    #clearing_price_nogrid,pw_A_nogrid,pw_B_nogrid=nwp_opt(1000,price_jz1,ub_jz1,lb_jz1,price_jz2,ub_jz2,lb_jz2,ub_jz3=wind_pw)
+
+    profit=clearing_price*wind_pw
+    record_nogrid["pw"].append(wind_pw)
+    record_nogrid["clearing price"].append(clearing_price)
+    record_nogrid["profit_C"].append(pw_C*clearing_price)
+    record_nogrid["profit_A"].append(pw_A*clearing_price)
+    record_nogrid["profit_B"].append(pw_B*clearing_price)
+    record_nogrid["profit"].append(1000*clearing_price)
 
 
 
@@ -122,8 +141,8 @@ for key,description in ylabel_map.items():
     x.append(record_nogrid["pw"])
     y.append(record[key])
     y.append(record_nogrid[key])
-    legends.append("包含电网约束")
-    legends.append("不包含电网约束")
+    legends.append("报量不报价")
+    legends.append("报量报价")
     title="风电报量_{}".format(description[:description.find("/")])
     save_path=os.path.join("cache",title+".png")
     export_fig(x,y,xlabel,description,title,legends,save_path)
