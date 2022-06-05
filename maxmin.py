@@ -17,8 +17,14 @@ def export_fig(x,y,xlabel,ylabel,title,legends,save_path):
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+    line_style=[
+        "-",
+        "--",
+        "-.",
+        ":"
+    ]
     for i in range(len(x)):
-        plt.plot(x[i],y[i],label=legends[i])
+        plt.plot(x[i],y[i],line_style[i],linewidth=3.5,label=legends[i])
     plt.legend()
     plt.savefig(save_path,dpi=600)
     plt.clf()
