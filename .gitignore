@@ -1,5 +1,6 @@
 # custom setting
 *.zip
+solution1.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

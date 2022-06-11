@@ -1,8 +1,8 @@
 '''
 Author: gwyxjtu 867718012@qq.com
 Date: 2022-06-05 16:51:09
-LastEditors: gwyxjtu 867718012@qq.com
-LastEditTime: 2022-06-05 17:15:36
+@ LastEditors: Yu Zhao
+@ LastEditTime: 2022-06-11 18:53:38
 FilePath: /NR_code/plot_powerflow.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -18,9 +18,9 @@ from maxmin import export_fig
 
 plt.rcParams['font.sans-serif'] = ['Heiti TC']  # 用来正常显示中文标签
 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
-list_A = [[170,190,330],[190,200,345],[200,210,400]]
-list_B = [[0,250,290],[250,360,320],[360,520,360]]
-list_C = [[0,350,0],[350,500,340],[500,600,390]]
+list_A = [[170,170,330],[170,200,340],[200,210,380]]
+list_B = [[0,250,290],[250,350,300],[350,520,360]]
+list_C = [[0,350,0],[350,450,340],[450,600,370]]
 #list_C = [[0,10000,0]]
 def piece_wise_linear_price(piece_wise_linear_price_list, pw):
     #input piecewise linear price

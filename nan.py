@@ -1,8 +1,8 @@
 '''
 Author: gwyxjtu 867718012@qq.com
 Date: 2022-06-04 20:01:50
-LastEditors: gwyxjtu 867718012@qq.com
-LastEditTime: 2022-06-05 17:50:28
+@ LastEditors: Yu Zhao
+@ LastEditTime: 2022-06-11 18:54:31
 FilePath: /NR_code/nan.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -14,16 +14,16 @@ from config import load
 m = gp.Model("lagrange")
 
 def nan_opt(load,   # 机组负载
-        price_jz1 = [350,400,450],   # 机组1分段价格
-        ub_jz1 = [600,100,100], # 机组1分段出力
+        price_jz1 = [300,380,430],   # 机组1分段价格
+        ub_jz1 = [500,200,100], # 机组1分段出力
         lb_jz1 = [200,0,0], # 机组1分段出力下限
         
-        price_jz2 = [340,420,460],  # 机组2
-        ub_jz2 = [700,100,100],
+        price_jz2 = [290,400,450],  # 机组2
+        ub_jz2 = [600,200,100],
         lb_jz2 = [300,0,0],
         
-        price_jz3 = [60,300,390],   # 机组3
-        ub_jz3 = [300,300,200],
+        price_jz3 = [60,250,390],   # 机组3
+        ub_jz3 = [300,200,300],
         lb_jz3 = [0,0,0],
         ):
     

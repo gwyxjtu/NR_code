@@ -1,5 +1,5 @@
-#from nan import nan_opt
-#from nan_without_price import nwp_opt
+from nan import nan_opt
+from nan_without_price import nwp_opt
 from config import load,cache_dir
 import os
 from matplotlib import pyplot as plt
@@ -71,7 +71,7 @@ if __name__=="__main__":
         for l in load:
             x.append(total_record[l]["pw"])
             y.append(total_record[l][key])
-            legends.append(l)
+            legends.append("load:{}MW·h".format(l))
         title="风电报量_{}".format(description[:description.find("/")])
         save_path=os.path.join(cache_dir,title+".png")
         export_fig(x,y,xlabel,description,title,legends,save_path)

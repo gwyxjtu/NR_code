@@ -1,8 +1,8 @@
 '''
 Author: gwyxjtu 867718012@qq.com
 Date: 2022-06-05 13:07:05
-LastEditors: gwyxjtu 867718012@qq.com
-LastEditTime: 2022-06-05 17:50:09
+@ LastEditors: Yu Zhao
+@ LastEditTime: 2022-06-11 18:55:14
 FilePath: /NR_code/nan_without_price.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -14,11 +14,12 @@ import pprint
 m = gp.Model("lagrange")
 
 def nwp_opt(load,
-        price_jz1 = [350,400,450],   # 机组1
-        ub_jz1 = [600,100,100],
-        lb_jz1 = [200,0,0],
-        price_jz2 = [340,420,460],   # 机组2
-        ub_jz2 = [700,100,100],
+        price_jz1 = [300,380,430],   # 机组1分段价格
+        ub_jz1 = [500,200,100], # 机组1分段出力
+        lb_jz1 = [200,0,0], # 机组1分段出力下限
+        
+        price_jz2 = [290,400,450],  # 机组2
+        ub_jz2 = [600,200,100],
         lb_jz2 = [300,0,0],
         ub_jz3 = 800,
         ):
